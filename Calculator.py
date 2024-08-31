@@ -14,10 +14,12 @@ print(tkinter.TclVersion)
 
 CALC = cf.Calculator()
 
+
 def get_entry_value():
     value = result.get()
     print("Setting Input Value:", value)
     CALC.input_value = float(value)
+
 
 def entry_update(**kwargs):
     try:
@@ -35,11 +37,7 @@ def entry_update(**kwargs):
     except ValueError:
         pass
 
-"""
-TODO: Figure out logic here to take the input value, move to memory, place the operation to be done
-in memory as well and updating the current value accordingly. Should trigger the prior operation in 
-memory so additional press after new input performs the operation.
-"""
+
 def equal_entries():
     get_entry_value()
     if not CALC.lock:
@@ -82,25 +80,12 @@ def perform_operation(method:str):
         result.delete(0, tkinter.END) #deletes the current value
 
 
-
-# def perform_operation(method:str):
-#     get_entry_value()
-#     if CALC.init_state:
-#         CALC.current_value = float(CALC.input_value)
-#         entry_update(value = str(CALC.input_value))
-#     CALC.procedure = method
-#     CALC.init_state = False
-#     equal_entries()
-#     CALC.lock = True        
-
-
 def equals():
     equal_entries()
     CALC.lock = False
     CALC.init_state = True
     CALC.refresh_screen = True
     CALC.current_value = 0.0
-
 
 
 # Create a window!
