@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "simple-calculator"
+version = "2024.12.0"
+description = "A very simple calculator application"
+authors = ["Robert Resch"]
+readme = "README.md"
+packages = [{include = "calculator"}]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.9"
+tk = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.test]  # This part can be left out
+
+[tool.poetry.group.test.dependencies]
+pytest = "^6.0.0"
+pytest-mock = "*"
+
+[tool.pyright]
+venvPath=`dirname /home/rresch/.cache/pypoetry/virtualenvs/simple-calculator-K8MDQ591-py3.12`
+venv=`simple-calculator-K8MDQ591-py3.12`
+
