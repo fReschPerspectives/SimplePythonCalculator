@@ -91,7 +91,7 @@ def equals():
 # Create a window!
 main_window = tkinter.Tk()
 main_window.title("Calculator")
-main_window.geometry("200x200-8-200")
+main_window.geometry("40x150")
 
 
 main_window.columnconfigure(0, weight=1)
@@ -109,9 +109,9 @@ main_window.rowconfigure(6, weight=1)
 main_window.rowconfigure(7, weight=1)
 
 # Result window
-result_frame = tkinter.Frame(main_window, padx=5)
+result_frame = tkinter.Frame(main_window, padx=7)
 result_frame.grid(row=0, column=0, sticky='new')
-result = tkinter.Entry(result_frame)
+result = tkinter.Entry(result_frame, width = 13)
 result.insert(0, '0.0')
 result.bind('<Left-Click>')
 result.grid(row=0, column=0, sticky='new')
@@ -171,7 +171,7 @@ equal_button.grid(row=5, column=2, sticky='nsew', columnspan=2)
 
 
 main_window.update()
-main_window.minsize(button_frame.winfo_width() + 5, result_frame.winfo_height() + button_frame.winfo_height() + 5)
+main_window.minsize(result_frame.winfo_width(), result_frame.winfo_height() + button_frame.winfo_height() + 5)
 main_window.mainloop()
 
 print(CALC.input_value)
