@@ -4,7 +4,7 @@ try:
 except ImportError:
     import Tkinter as tkinter
 
-import CalculatorFunctions as cf
+from SimplePythonCalculator import CalculatorFunctions as cf
 from functools import partial
 
 print(tkinter.TkVersion)
