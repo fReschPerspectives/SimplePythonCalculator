@@ -44,6 +44,19 @@ def clear():
     entry_update(value="0.0")
 
 
+def clear_all():
+    result.delete(0, tkinter.END) #deletes the current value
+    entry_update(value="0.0")
+    CALC.init_state = True
+    CALC.lock = False
+    CALC.refresh_screen = False
+    CALC.procedure = ""
+    CALC.initial_value = 0.0
+    CALC.input_value = 0.0
+    CALC.current_value = 0.0
+    CALC.final_value = 0.0
+
+
 def equal_entries():
     get_entry_value()
     if not CALC.lock:
@@ -128,7 +141,7 @@ button_frame.grid(row=1, column=0, sticky='new')
 
 # Row 1 Buttons
 c_button = tkinter.Button(button_frame, text='C', command=lambda: clear())
-ce_button = tkinter.Button(button_frame, text='CE')
+ce_button = tkinter.Button(button_frame, text='CE', command=lambda: clear_all())
 percent_button = tkinter.Button(button_frame, text='%')
 divide_button = tkinter.Button(button_frame, text='/', command=lambda: perform_operation("divide"))
 c_button.grid(row=1, column=0, sticky='nsew')
