@@ -196,8 +196,8 @@ star_button.grid(row=4, column=6, sticky='nsew')
 star_button.config(width=2)
 
 # Row 5 Buttons
-zero_button = tkinter.Button(button_frame, text='0')
-period_button = tkinter.Button(button_frame, text='.')
+zero_button = tkinter.Button(button_frame, text='0', command=lambda: entry_update(value='0'))
+period_button = tkinter.Button(button_frame, text='.', command=lambda: entry_update(value='.'))
 equal_button = tkinter.Button(button_frame, text='=', command=lambda: equals())
 
 zero_button.grid(row=5, column=0, sticky='nsew')
