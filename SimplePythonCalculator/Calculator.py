@@ -56,6 +56,12 @@ def clear_all():
     CALC.current_value = 0.0
     CALC.final_value = 0.0
 
+def percent_function():
+    get_entry_value()
+    CALC.current_value = CALC.input_value / 100.0
+    result.delete(0, tkinter.END) #deletes the current value
+    entry_update(value = str(CALC.current_value))
+    print("Current Value after percent_function:", CALC.current_value)
 
 def equal_entries():
     get_entry_value()
@@ -142,7 +148,7 @@ button_frame.grid(row=1, column=0, sticky='new')
 # Row 1 Buttons
 c_button = tkinter.Button(button_frame, text='C', command=lambda: clear())
 ce_button = tkinter.Button(button_frame, text='CE', command=lambda: clear_all())
-percent_button = tkinter.Button(button_frame, text='%')
+percent_button = tkinter.Button(button_frame, text='%', command=lambda: percent_function())
 divide_button = tkinter.Button(button_frame, text='/', command=lambda: perform_operation("divide"))
 c_button.grid(row=1, column=0, sticky='nsew')
 c_button.config(width=2)
