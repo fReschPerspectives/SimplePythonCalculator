@@ -38,6 +38,7 @@ def entry_update(**kwargs):
     except ValueError:
         pass
 
+
 def clear():
     result.delete(0, tkinter.END) #deletes the current value
     entry_update(value="0.0")
