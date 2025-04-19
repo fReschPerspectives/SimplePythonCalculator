@@ -1,17 +1,16 @@
-import os
 from turtle import clear
+
 try:
     import tkinter
 except ImportError:
     import Tkinter as tkinter
 
 from SimplePythonCalculator import CalculatorFunctions as cf
-from functools import partial
 
 print(tkinter.TkVersion)
 print(tkinter.TclVersion)
 
-#tkinter._test()
+# tkinter._test()
 
 CALC = cf.Calculator()
 
@@ -24,28 +23,28 @@ def get_entry_value():
 
 def entry_update(**kwargs):
     try:
+
         def result_condition() -> str:
             if result.get() == "0.0":
-                return ''
+                return ""
             else:
                 return result.get()
 
-        value = (result_condition() + kwargs.get("value"))
-        result.delete(0, tkinter.END) #deletes the current value
-        result.insert(0, value) #inserts new value assigned by 2nd parameter
-
+        value = result_condition() + str(kwargs.get("value"))
+        result.delete(0, tkinter.END)  # deletes the current value
+        result.insert(0, value)  # inserts new value assigned by 2nd parameter
 
     except ValueError:
         pass
 
 
 def clear():
-    result.delete(0, tkinter.END) #deletes the current value
+    result.delete(0, tkinter.END)  # deletes the current value
     entry_update(value="0.0")
 
 
 def clear_all():
-    result.delete(0, tkinter.END) #deletes the current value
+    result.delete(0, tkinter.END)  # deletes the current value
     entry_update(value="0.0")
     CALC.init_state = True
     CALC.lock = False
@@ -56,12 +55,14 @@ def clear_all():
     CALC.current_value = 0.0
     CALC.final_value = 0.0
 
+
 def percent_function():
     get_entry_value()
     CALC.current_value = CALC.input_value / 100.0
-    result.delete(0, tkinter.END) #deletes the current value
-    entry_update(value = str(CALC.current_value))
+    result.delete(0, tkinter.END)  # deletes the current value
+    entry_update(value=str(CALC.current_value))
     print("Current Value after percent_function:", CALC.current_value)
+
 
 def equal_entries():
     get_entry_value()
@@ -76,16 +77,16 @@ def equal_entries():
         CALC.subtract()
     elif CALC.procedure == "multiply":
         CALC.multiply()
-    elif CALC.procedure == "divide":    
+    elif CALC.procedure == "divide":
         CALC.divide()
-    result.delete(0, tkinter.END) #deletes the current value
-    entry_update(value = str(CALC.current_value))
+    result.delete(0, tkinter.END)  # deletes the current value
+    entry_update(value=str(CALC.current_value))
     CALC.set_final_value()
     CALC.lock = True
     print("Current Value after equal_entries:", CALC.current_value)
 
 
-def perform_operation(method:str):
+def perform_operation(method: str):
     if CALC.init_state:
         get_entry_value()
         if not CALC.lock:
@@ -94,15 +95,15 @@ def perform_operation(method:str):
         CALC.init_state = False
         CALC.refresh_screen = True
         CALC.lock = True
-        result.delete(0, tkinter.END) #deletes the current value
+        result.delete(0, tkinter.END)  # deletes the current value
     else:
         if not CALC.lock:
             CALC.current_value = float(CALC.input_value)
-        CALC.procedure = method
         equal_entries()
+        CALC.procedure = method
         CALC.lock = True
         CALC.refresh_screen = False
-        result.delete(0, tkinter.END) #deletes the current value
+        result.delete(0, tkinter.END)  # deletes the current value
 
 
 def equals():
@@ -116,7 +117,7 @@ def equals():
 # Create a window!
 main_window = tkinter.Tk()
 main_window.title("Calculator")
-main_window.geometry("40x150")
+main_window.geometry("225x175")
 
 
 main_window.columnconfigure(0, weight=1)
@@ -135,87 +136,122 @@ main_window.rowconfigure(7, weight=1)
 
 # Result window
 result_frame = tkinter.Frame(main_window, padx=9)
-result_frame.grid(row=0, column=0, sticky='new')
-result = tkinter.Entry(result_frame, width = 17)
-result.insert(0, '0.0')
-result.bind('<Left-Click>')
-result.grid(row=0, column=0, sticky='new')
+result_frame.grid(row=0, column=0, sticky="new")
+result = tkinter.Entry(result_frame, width=22)
+result.insert(0, "0.0")
+result.bind("<Left-Click>")
+result.grid(row=0, column=0, sticky="new")
 
 # Button Frame
 button_frame = tkinter.Frame(main_window, padx=5)
-button_frame.grid(row=1, column=0, sticky='new')
+button_frame.grid(row=1, column=0, sticky="new")
 
 # Row 1 Buttons
-c_button = tkinter.Button(button_frame, text='C', command=lambda: clear())
-ce_button = tkinter.Button(button_frame, text='CE', command=lambda: clear_all())
-percent_button = tkinter.Button(button_frame, text='%', command=lambda: percent_function())
-divide_button = tkinter.Button(button_frame, text='/', command=lambda: perform_operation("divide"))
-c_button.grid(row=1, column=0, sticky='nsew')
+c_button = tkinter.Button(button_frame, text="C", command=lambda: clear())
+ce_button = tkinter.Button(button_frame, text="CE", command=lambda: clear_all())
+percent_button = tkinter.Button(
+    button_frame, text="%", command=lambda: percent_function()
+)
+divide_button = tkinter.Button(
+    button_frame, text="/", command=lambda: perform_operation("divide")
+)
+c_button.grid(row=1, column=0, sticky="nsew")
 c_button.config(width=2)
-ce_button.grid(row=1, column=2, sticky='nsew')
+ce_button.grid(row=1, column=2, sticky="nsew")
 ce_button.config(width=2)
-percent_button.grid(row=1, column=4, sticky='nsew')
+percent_button.grid(row=1, column=4, sticky="nsew")
 percent_button.config(width=2)
-divide_button.grid(row=1, column=6, sticky='nsew')
+divide_button.grid(row=1, column=6, sticky="nsew")
 divide_button.config(width=2)
 
 # Row 2 Buttons
-seven_button = tkinter.Button(button_frame, text='7', command=lambda: entry_update(value='7'))
-eight_button = tkinter.Button(button_frame, text='8', command=lambda: entry_update(value='8'))
-nine_button = tkinter.Button(button_frame, text='9', command=lambda: entry_update(value='9'))
-plus_button = tkinter.Button(button_frame, text='+', command=lambda: perform_operation("add"))
-seven_button.grid(row=2, column=0, sticky='nsew')
+seven_button = tkinter.Button(
+    button_frame, text="7", command=lambda: entry_update(value="7")
+)
+eight_button = tkinter.Button(
+    button_frame, text="8", command=lambda: entry_update(value="8")
+)
+nine_button = tkinter.Button(
+    button_frame, text="9", command=lambda: entry_update(value="9")
+)
+plus_button = tkinter.Button(
+    button_frame, text="+", command=lambda: perform_operation("add")
+)
+seven_button.grid(row=2, column=0, sticky="nsew")
 seven_button.config(width=2)
-eight_button.grid(row=2, column=2, sticky='nsew')
+eight_button.grid(row=2, column=2, sticky="nsew")
 eight_button.config(width=2)
-nine_button.grid(row=2, column=4, sticky='nsew')
+nine_button.grid(row=2, column=4, sticky="nsew")
 nine_button.config(width=2)
-plus_button.grid(row=2, column=6, sticky='nsew')
+plus_button.grid(row=2, column=6, sticky="nsew")
 plus_button.config(width=2)
 
 # Row 3 Buttons
-four_button = tkinter.Button(button_frame, text='4', command=lambda: entry_update(value='4'))
-five_button = tkinter.Button(button_frame, text='5', command=lambda: entry_update(value='5'))
-six_button = tkinter.Button(button_frame, text='6', command=lambda: entry_update(value='6'))
-minus_button = tkinter.Button(button_frame, text='-', command=lambda: perform_operation("subtract"))
-four_button.grid(row=3, column=0, sticky='nsew')
+four_button = tkinter.Button(
+    button_frame, text="4", command=lambda: entry_update(value="4")
+)
+five_button = tkinter.Button(
+    button_frame, text="5", command=lambda: entry_update(value="5")
+)
+six_button = tkinter.Button(
+    button_frame, text="6", command=lambda: entry_update(value="6")
+)
+minus_button = tkinter.Button(
+    button_frame, text="-", command=lambda: perform_operation("subtract")
+)
+four_button.grid(row=3, column=0, sticky="nsew")
 four_button.config(width=2)
-five_button.grid(row=3, column=2, sticky='nsew')
+five_button.grid(row=3, column=2, sticky="nsew")
 five_button.config(width=2)
-six_button.grid(row=3, column=4, sticky='nsew')
+six_button.grid(row=3, column=4, sticky="nsew")
 six_button.config(width=2)
-minus_button.grid(row=3, column=6, sticky='nsew')
+minus_button.grid(row=3, column=6, sticky="nsew")
 minus_button.config(width=2)
 
 # Row 4 Buttons
-one_button = tkinter.Button(button_frame, text='1', command=lambda: entry_update(value='1'))
-two_button = tkinter.Button(button_frame, text='2', command=lambda: entry_update(value='2'))
-three_button = tkinter.Button(button_frame, text='3', command=lambda: entry_update(value='3'))
-star_button = tkinter.Button(button_frame, text='*', command=lambda: perform_operation("multiply"))
-one_button.grid(row=4, column=0, sticky='nsew')
+one_button = tkinter.Button(
+    button_frame, text="1", command=lambda: entry_update(value="1")
+)
+two_button = tkinter.Button(
+    button_frame, text="2", command=lambda: entry_update(value="2")
+)
+three_button = tkinter.Button(
+    button_frame, text="3", command=lambda: entry_update(value="3")
+)
+star_button = tkinter.Button(
+    button_frame, text="*", command=lambda: perform_operation("multiply")
+)
+one_button.grid(row=4, column=0, sticky="nsew")
 one_button.config(width=2)
-two_button.grid(row=4, column=2, sticky='nsew')
+two_button.grid(row=4, column=2, sticky="nsew")
 two_button.config(width=2)
-three_button.grid(row=4, column=4, sticky='nsew')
+three_button.grid(row=4, column=4, sticky="nsew")
 three_button.config(width=2)
-star_button.grid(row=4, column=6, sticky='nsew')
+star_button.grid(row=4, column=6, sticky="nsew")
 star_button.config(width=2)
 
 # Row 5 Buttons
-zero_button = tkinter.Button(button_frame, text='0', command=lambda: entry_update(value='0'))
-period_button = tkinter.Button(button_frame, text='.', command=lambda: entry_update(value='.'))
-equal_button = tkinter.Button(button_frame, text='=', command=lambda: equals())
+zero_button = tkinter.Button(
+    button_frame, text="0", command=lambda: entry_update(value="0")
+)
+period_button = tkinter.Button(
+    button_frame, text=".", command=lambda: entry_update(value=".")
+)
+equal_button = tkinter.Button(button_frame, text="=", command=lambda: equals())
 
-zero_button.grid(row=5, column=0, sticky='nsew')
+zero_button.grid(row=5, column=0, sticky="nsew")
 zero_button.config(width=2)
-period_button.grid(row=5, column=2, sticky='nsew')
+period_button.grid(row=5, column=2, sticky="nsew")
 period_button.config(width=2)
-equal_button.grid(row=5, column=4, sticky='nsew', columnspan=3)
+equal_button.grid(row=5, column=4, sticky="nsew", columnspan=3)
 equal_button.config(width=8)
 
 
 main_window.update()
-main_window.minsize(result_frame.winfo_width(), result_frame.winfo_height() + button_frame.winfo_height() + 5)
+main_window.minsize(
+    result_frame.winfo_width(),
+    result_frame.winfo_height() + button_frame.winfo_height() + 5,
+)
 main_window.mainloop()
 
 print(CALC.input_value)

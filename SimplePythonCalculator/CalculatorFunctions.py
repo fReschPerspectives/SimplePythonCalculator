@@ -5,6 +5,7 @@ GUI: basic arithmetic operations and display the results
 
 import typing
 
+
 class Calculator:
     def __init__(self):
         self.init_state = True
@@ -49,14 +50,13 @@ class Calculator:
         self.input_value = input_value
         return
 
-    def set_final_value(self) -> float:
+    def set_final_value(self) -> None:
         self.final_value = self.current_value
         return
 
     def get_final_value(self) -> float:
         return self.final_value
-        return
 
-    def print_input_value(self)->None:
+    def print_input_value(self) -> None:
         print(self.input_value)
         return
