@@ -1,5 +1,3 @@
-from turtle import clear
-
 try:
     import tkinter
 except ImportError:
