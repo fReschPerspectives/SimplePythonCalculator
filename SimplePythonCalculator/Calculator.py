@@ -1,3 +1,4 @@
+import platform
 import tkinter
 
 from SimplePythonCalculator import CalculatorFunctions as cf
@@ -88,16 +89,36 @@ def create_button(frame, text, command, row, col, colspan=1, width=2):
 
 main_window = tkinter.Tk()
 main_window.title("Calculator")
-main_window.geometry("225x175")
+if platform.system() == "Windows":
+    main_window.geometry("100x100")
+    result_frame = tkinter.Frame(main_window, padx=9)
+    result_frame.grid(row=0, column=0, sticky="new")
+    result = tkinter.Entry(result_frame, width=17)
+    result.insert(0, "0.0")
+    result.grid(row=0, column=0, sticky="new")
 
-result_frame = tkinter.Frame(main_window, padx=9)
-result_frame.grid(row=0, column=0, sticky="new")
-result = tkinter.Entry(result_frame, width=22)
-result.insert(0, "0.0")
-result.grid(row=0, column=0, sticky="new")
+    button_frame = tkinter.Frame(main_window, padx=5)
+    button_frame.grid(row=1, column=0, sticky="new")
+elif platform.system() == "Linux":
+    main_window.geometry("225x180")
+    result_frame = tkinter.Frame(main_window, padx=9)
+    result_frame.grid(row=0, column=0, sticky="new")
+    result = tkinter.Entry(result_frame, width=22)
+    result.insert(0, "0.0")
+    result.grid(row=0, column=0, sticky="new")
 
-button_frame = tkinter.Frame(main_window, padx=5)
-button_frame.grid(row=1, column=0, sticky="new")
+    button_frame = tkinter.Frame(main_window, padx=5)
+    button_frame.grid(row=1, column=0, sticky="new")
+else:
+    main_window.geometry("225x175")
+    result_frame = tkinter.Frame(main_window, padx=9)
+    result_frame.grid(row=0, column=0, sticky="new")
+    result = tkinter.Entry(result_frame, width=22)
+    result.insert(0, "0.0")
+    result.grid(row=0, column=0, sticky="new")
+
+    button_frame = tkinter.Frame(main_window, padx=5)
+    button_frame.grid(row=1, column=0, sticky="new")
 
 # Button layout: (text, command, row, col, colspan)
 buttons = [
